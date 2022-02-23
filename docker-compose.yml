@@ -6,9 +6,9 @@ services:
       dockerfile: Dockerfile
     image: "ms_vagr:gateway"
     volumes:
-      - "./gateway/node_modules:/home/node/app/node_modules"
-      - "./gateway/.env:/home/node/app/.env"
-      - "./gateway:/home/node/app"
+      - "./gateway/node_modules:/home/vagrant/app/node_modules"
+      - "./gateway/.env:/home/vagrant/app/.env"
+      - "./gateway:/home/vagrant/app"
     env_file:
       - ./gateway/.env
     ports:
@@ -20,9 +20,9 @@ services:
       dockerfile: Dockerfile
     image: "ms_vagr:product"
     volumes:
-      - "./product/node_modules:/home/node/app/node_modules"
-      - "./product/.env:/home/node/app/.env"
-      - "./product:/home/node/app"
+      - "./product/node_modules:/home/vagrant/app/node_modules"
+      - "./product/.env:/home/vagrant/app/.env"
+      - "./product:/home/vagrant/app"
     env_file:
       - ./product/.env
     ports:
@@ -34,9 +34,9 @@ services:
       dockerfile: Dockerfile
     image: "ms_vagr:user"
     volumes:
-      - "./user/node_modules:/home/node/app/node_modules"
-      - "./user/.env:/home/node/app/.env"
-      - "./user:/home/node/app"
+      - "./user/node_modules:/home/vagrant/app/node_modules"
+      - "./user/.env:/home/vagrant/app/.env"
+      - "./user:/home/vagrant/app"
     env_file:
       - ./user/.env
     ports:
