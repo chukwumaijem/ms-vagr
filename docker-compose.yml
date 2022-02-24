@@ -1,5 +1,49 @@
 version: "3.2"
 services:
+  appmain:
+    build:
+      context: ./app_main
+      dockerfile: Dockerfile
+    image: "ms_vagr:appmain"
+    volumes:
+      - "./app_main/node_modules:/home/vagrant/app/node_modules"
+      - "./app_main:/home/vagrant/app"
+    ports:
+      - 5000:3000
+
+  appone:
+    build:
+      context: ./app_one
+      dockerfile: Dockerfile
+    image: "ms_vagr:appone"
+    volumes:
+      - "./app_one/node_modules:/home/vagrant/app/node_modules"
+      - "./app_one:/home/vagrant/app"
+    ports:
+      - 5001:3000
+
+  apptwo:
+    build:
+      context: ./app_two
+      dockerfile: Dockerfile
+    image: "ms_vagr:apptwo"
+    volumes:
+      - "./app_two/node_modules:/home/vagrant/app/node_modules"
+      - "./app_two:/home/vagrant/app"
+    ports:
+      - 5002:3000
+
+  appthree:
+    build:
+      context: ./app_three
+      dockerfile: Dockerfile
+    image: "ms_vagr:appthree"
+    volumes:
+      - "./app_three/node_modules:/home/vagrant/app/node_modules"
+      - "./app_three:/home/vagrant/app"
+    ports:
+      - 5000:3000
+
   gateway:
     build:
       context: ./gateway
