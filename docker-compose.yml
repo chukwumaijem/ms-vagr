@@ -86,6 +86,28 @@ services:
     ports:
       - 3003:3003
 
+  selenoid:
+    build:
+      context: ./docker/selenoid
+      dockerfile: Dockerfile
+    image: "ms_vagr:selenoid"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./docker/selenoid/config/:/etc/selenoid/:ro"
+      - "./docker/selenoid/logs/:/opt/selenoid/logs"
+    env_file:
+      - ./docker/selenoid/.env
+    ports:
+      - 4444:4444
+
+  selenoid-ui:
+    image: "aerokube/selenoid-ui:1.10.4"
+    links:
+      - selenoid
+    ports:
+      - "8080:8080"
+    command: [ "--selenoid-uri", "http://selenoid:4444" ]
+
 networks:
   ms_vagr:
     external: true

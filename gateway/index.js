@@ -20,6 +20,18 @@ app.get("/get-products", async (_req, res) => {
   res.json(data);
 });
 
+app.get("/run-automation", async (_req, res) => {
+  let data;
+  try {
+    const resp = await fetch(`${PRODUCT_SERVICE_URL}/run-automation`);
+    data = await resp.json();
+  } catch (error) {
+    data = { success: false, error: error };
+  }
+
+  res.json(data);
+});
+
 app.get("/get-users", async (_req, res) => {
   let data;
 

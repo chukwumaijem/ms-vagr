@@ -21,6 +21,9 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docke
 apt-get update
 apt-get install docker-ce docker-ce-cli containerd.io -y
 
+## Pull Selenoid VNC image
+docker pull selenoid/vnc_chrome:98.0
+
 # install docker-compose
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
