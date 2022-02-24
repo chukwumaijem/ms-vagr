@@ -26,3 +26,7 @@ curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compo
 
 chmod +x /usr/local/bin/docker-compose
 sudo chmod 666 /var/run/docker.sock
+
+# Install Nginx
+apt-get update
+apt-get install nginx -y
