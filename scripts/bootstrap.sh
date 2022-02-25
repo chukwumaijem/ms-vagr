@@ -11,7 +11,7 @@ apt-get remove docker docker-engine docker.io containerd runc
 
 ## Install new Docker
 apt-get update
-apt-get install ca-certificates curl gnupg lsb-release
+apt-get install -y ca-certificates curl gnupg lsb-release
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg \
   --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
@@ -19,11 +19,10 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docke
   https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 apt-get update
-apt-get install docker-ce docker-ce-cli containerd.io -y
+apt-get install -y docker-ce docker-ce-cli containerd.io
 
 ## Docker Homekeeping
 docker pull selenoid/vnc_chrome:98.0
-docker network create ms_vagr
 
 # install docker-compose
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -31,6 +30,19 @@ curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compo
 chmod +x /usr/local/bin/docker-compose
 sudo chmod 666 /var/run/docker.sock
 
+# install Nodejs
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+apt-get install -y nodejs
+apt-get install -y npm
+npm install -g npm@latest
+
 # Install Nginx
 apt-get update
 apt-get install nginx -y
+
+## Set up nginx conf
+sudo mv /etc/nginx/sites-available/default /home/vagrant/app/nginx/default.old
+sudo cp /home/vagrant/app/nginx/conf/localhost /etc/nginx/sites-available/localhost
+sudo rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled/
+sudo systemctl reload nginx
