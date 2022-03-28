@@ -57,7 +57,7 @@ Vagrant.configure("2") do |config|
   #
   config.vm.provider "virtualbox" do |vb|
     # Display name of the the VirtualBox VM
-    vb.name = 'ubuntu_nginx_prac'
+    vb.name = 'ub_nx_micro-s'
 
     # Display the VirtualBox GUI when booting the machine
     # vb.gui = true

@@ -1,3 +1,12 @@
+map $http_upgrade $connection_upgrade {
+	default upgrade;
+	'' close;
+}
+
+upstream websocket {
+		server localhost:5008;
+}
+
 server {
 	root /var/www/html;
 	index index.html index.htm index.nginx-debian.html;
@@ -8,7 +17,17 @@ server {
 	add_header X-Content-Type-Options nosniff;
 
 	location / {
-		proxy_pass http://localhost:5008;
+		auth_basic "Restricted Content";
+		auth_basic_user_file /etc/nginx/.htpasswd;
+		proxy_pass http://websocket;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection $connection_upgrade;
+		proxy_set_header Host $host;
+	}
+
+	location /appmain {
+		proxy_pass http://localhost:5000;
 	}
 
 	location /appone {
@@ -21,10 +40,6 @@ server {
 
 	location /appthree {
 		proxy_pass http://localhost:5003;
-	}
-
-	location /appmain {
-		proxy_pass http://localhost:5000;
 	}
 
 	location /api {

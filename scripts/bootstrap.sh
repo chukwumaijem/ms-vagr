@@ -2,12 +2,12 @@
 apt-get update
 
 # Upgrade Packages
-apt-get upgrade
+apt-get upgrade -y
 
 # Install Docker
 
 ## Remove old Docker
-apt-get remove docker docker-engine docker.io containerd runc
+apt-get remove -y docker docker-engine docker.io containerd runc
 
 ## Install new Docker
 apt-get update
@@ -39,6 +39,10 @@ npm install -g npm@latest
 # Install Nginx
 apt-get update
 apt-get install nginx -y
+
+# Create passwords
+sudo sh -c "echo -n 'chuk:' >> /etc/nginx/.htpasswd"
+sudo sh -c "openssl passwd -apr1 >> /etc/nginx/.htpasswd"
 
 ## Set up nginx conf
 sudo mv /etc/nginx/sites-available/default /home/vagrant/app/nginx/default.old
