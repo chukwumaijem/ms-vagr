@@ -40,9 +40,11 @@ npm install -g npm@latest
 apt-get update
 apt-get install nginx -y
 
-# Create passwords
-sudo sh -c "echo -n 'chuk:' >> /etc/nginx/.htpasswd"
-sudo sh -c "openssl passwd -apr1 >> /etc/nginx/.htpasswd"
+# Install passwords tools
+sudo apt-get install -y apache2-utils
+## Create credentials
+sudo htpasswd -c /etc/apache2/.htpasswd chuk
+
 
 ## Set up nginx conf
 sudo mv /etc/nginx/sites-available/default /home/vagrant/app/nginx/default.old
